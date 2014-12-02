@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block content %}
+<h1>Messages Sent</h1>
+    <div class='messages'>
+        {% if subject %}
+            Your message '{{ subject }}' was sent to the following recipients:<br>
+            <ul>
+                {% for recipient in recipients %}
+                <li>{{ recipient }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            There was a problem sending your message.
+        {% endif %}
+    </div>
+{% endblock %}

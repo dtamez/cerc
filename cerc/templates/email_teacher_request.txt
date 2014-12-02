@@ -1,0 +1,12 @@
+Diana Oudin,
+
+This is an automated message from enroll-cerconline.org.
+
+{{ first_name }} {{ last_name }} would like to become a teacher at CERC.
+You can contact {{ first_name }} at {{ email }}.
+
+The courses {{ first_name }} teaches are:
+{{ courses }}
+
+Thanks for being the CERC Administrator!
+

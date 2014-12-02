@@ -1,0 +1,116 @@
+from django.conf.urls import include, patterns, url
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
+from cerc import views
+from cerc import settings
+
+from django.contrib import admin
+admin.autodiscover()
+
+urlpatterns = patterns(
+    '',
+    (r'^$', views.index),
+    (r'^submit_contact_info/$', views.submit_contact_info),
+    (r'^contact_info_submitted/$', views.contact_info_submitted),
+    (r'^submit_course/$', views.submit_course),
+    (r'^edit_course_details/(?P<id>\d+)$', views.edit_course_details),
+    (r'^teacher/(?P<username>[0-9A-Za-z]+)/bio/$', views.get_teacher_bio),
+    (r'^edit_teacher_bio/$', views.edit_teacher_bio),
+    (r'^teacher_bio_submitted/$', views.teacher_bio_submitted),
+    (r'^course_submitted/$', views.course_submitted),
+    (r'^course/(?P<code>.*)$', views.course),
+    (r'^enrollment_report/$', views.enrollment_report),
+    (r'^upcoming_courses/$', views.upcoming_courses),
+    (r'^current_courses/$', views.current_courses),
+    (r'^attendance_info$', views.attendance_info),
+    (r'^attendance_sheet$', views.attendance_sheet),
+    (r'^attendance/(?P<weekday>.{2}?)$', views.attendance_sheet),
+    (r'^mark_attendance', views.mark_attendance),
+    (r'^roll/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})$',
+     views.attendance),
+    (r'^roll$', views.attendance),
+    (r'^submit_teacher_request/$', views.submit_teacher_request),
+    (r'^teacher_request_submitted/$', views.teacher_request_submitted),
+    (r'^assignments/$', views.student_assignments),
+    (r'^assignments_calendar/(?P<year>\d+)/(?P<month_id>\d+)/'
+     '(?P<student_id>\d+)$', views.calendar),
+    (r'^assignments_calendar/$', views.calendar),
+    (r'^assignments_for_student/(?P<student_id>\d+)$',
+     views.assignments_for_student),
+    (r'^assignments_for_course/(?P<course_id>\d+)/(?P<teacher_id>\d+)$',
+     views.assignments_for_course),
+    (r'^change_unit_assignment_dates/(?P<unit_id>\d+)$',
+     views.change_unit_assignment_dates),
+    (r'^copy_assignments_for_unit/(?P<unit_id>\d+)$',
+     views.copy_assignments_for_unit),
+    url(r'^assignments_by_course/((?P<selected_course>\d+))/$',
+        views.assignments_by_course, name='assignments_by_course'),
+    url(r'^assignments_by_course/$', views.assignments_by_course,
+        name='assignments_by_course'),
+    url(r'^manage_assignments/((?P<edited_course>\d+))/'
+        '((?P<edited_unit>\d+))?/$',
+        views.manage_assignments, name='manage_assignments'),
+    url(r'^manage_assignments/$',
+        views.manage_assignments, name='manage_assignments'),
+    (r'^add_unit_for_course/(?P<course_id>\d+)$', views.add_unit_for_course),
+    (r'^edit_unit/(?P<unit_id>\d+)$', views.edit_unit),
+    (r'^add_assignment_for_unit/(?P<unit_id>\d+)$',
+     views.add_assignment_for_unit),
+    (r'^edit_assignment/(?P<assignment_id>\d+)$', views.edit_assignment),
+    (r'^delete_assignment/(?P<assignment_id>\d+)$', views.delete_assignment),
+    (r'^delete_unit/(?P<unit_id>\d+)$', views.delete_unit),
+    url(r'^assignments_for_student_and_course/(?P<student_id>\d+)/'
+        '(?P<course_id>\d+)/(?P<unit_id>\d+)$',
+        views.assignments_for_student_and_course,
+        name='assignments_for_student_and_course'),
+    url(r'^assignments_for_student_and_course/(?P<student_id>\d+)/'
+        '(?P<course_id>\d+)$',
+        views.assignments_for_student_and_course,
+        name='assignments_for_student_and_course'),
+    (r'^edit_student_assignment/(?P<assignment_id>\d+)/(?P<student_id>\d+)$',
+     views.edit_student_assignment),
+    (r'^assignment_info/(?P<assignment_id>\d+)$', views.assignment_info),
+    (r'^edit_unit_grade/(?P<unit_id>\d+)/(?P<student_id>\d+)/$',
+     views.edit_unit_grade),
+    (r'^teacher_send_message/((?P<selected_course>\d+))?$',
+     views.teacher_send_message),
+    (r'^student_send_message/((?P<selected_course>\d+))?$',
+     views.student_send_message),
+    (r'^messages_sent/(?P<group_id>.*)/$', views.messages_sent),
+    (r'^message_history$', views.message_history),
+    (r'^grades_matrix$', views.grades_matrix),
+    (r'^activate_semester/(?P<id>\d+)$', views.activate_semester),
+    url(r'^edit_family/$', views.edit_family, name='edit_family'),
+    url(r'^edit_student/$', views.edit_student, name='edit_student'),
+    url(r'^add_student/$', views.add_student, name='add_student'),
+    url(r'^delete_student/$', views.delete_student, name='delete_student'),
+    ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns += patterns(
+    '',
+    url(r'^admin/', include(admin.site.urls)),
+)
+
+urlpatterns += patterns(
+    '',
+    url(r'^password/change/$',
+        auth_views.password_change,
+        name='password_change'),
+    url(r'^password/change/done/$',
+        auth_views.password_change_done,
+        name='password_change_done'),
+    url(r'^password/reset/$',
+        auth_views.password_reset,
+        name='password_reset'),
+    url(r'^password/reset/done/$',
+        auth_views.password_reset_done,
+        name='password_reset_done'),
+    url(r'^password/reset/complete/$',
+        auth_views.password_reset_complete,
+        name='password_reset_complete'),
+    url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        auth_views.password_reset_confirm,
+        name='password_reset_confirm'),
+    url(r'accounts/', include('registration.backends.default.urls')),
+)

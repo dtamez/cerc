@@ -1,0 +1,83 @@
+Enrollment
+    Registeration (for a family)
+
+Options after logging in as a family head:
+    Add student
+    Fill out forms in family approval packet
+    edit student profile
+    edit family profile
+
+
+
+
+Family approval process
+    xForm
+        contents
+        date signed
+    yForm
+    feeMustBePaidFor
+
+    pastorRecommendationForm:wa
+
+
+
+Enroll for classes
+
+
+
+Not recognized by cerc
+    Register as a family head
+        receive confirmation email
+        |
+        |
+        registered
+
+Recognized as a family but not approved
+        |
+        |
+        Apply for approval as a CERC family
+                |
+                |
+                Read forms and check/sign each
+                Print out pastoral referral form
+                Check/sign payment approval form
+                         |
+                         |
+                         Temporarily approve
+
+Recognized as approved family
+        |                   |                   |
+        |                   |                   |
+        Add Students        Edit profile(s)     Enroll student in a class
+            |                   |                       |
+            username, pwd       family info             (see enroll process)
+            age, etc.           student info
+
+Enroll student in a class
+    |
+    choose student
+        |
+        choose a class that is still available (student age, max_students etc.)
+            |
+            rinse/repeat
+            |
+            reserve position for student but not final until paid
+            (does this count against the max_limit?)
+            print out invoice for all enrollments, class fees, approval amount
+
+Process
+    Register on the site
+    Create family profile
+        mother
+        father
+        students
+    Fill out family approval packet
+        Form 1
+        Form 2
+        Form N
+        Print out pastor recommendation form
+        Payment approval form
+http://enroll-cerconline.org/accounts/activate/8606944130af27dafaccff38c7fae45cafb66ac6/
+
+
+

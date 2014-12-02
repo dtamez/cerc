@@ -1,0 +1,251 @@
+/*
+ --------------------------------------links------------------------------------
+ */
+a {
+    text-decoration: none !important;
+    color: #0073EA;
+}
+.ui-widget-content {
+    line-height: 18px;
+}
+.ui-widget-content td, #content td {
+    line-height: 18px;
+}
+/*
+ --------------------------------------base-------------------------------------
+ */
+body {
+    font-family: "Ubuntu Beta", "Bitstream Vera Sans", DejaVu Sans, Tahoma, sans-serif;
+    color: #333;
+    background: white url(/static/css/images/body_bg.png);
+    font-size: 12px;
+    line-height: 14px;
+    margin: 0px;
+    padding: 0px;
+}
+.container {
+    margin: 0 auto;
+    width: 980px;
+    padding: 12px;
+}
+#content {
+    min-height: 560px;
+    background: #f7f6f5;
+    padding: 25px 0 0;
+}
+#header {
+    color: white;
+    background-color: #0073ea;
+    height: 50px;
+    padding: 12px;
+}
+#banner {
+    font-size: 1.6em;
+    line-height: .8em;
+    padding: 0 0 19px;
+}
+#footer {
+    border-top: solid 1px #aaaaaa;
+    padding-top: 6px;
+    text-align: center;
+    clear: all;
+}
+fieldset {
+    padding: 1em !important;
+    font:80%/1 sans-serif;
+    border: 1px solid #CCCCCC !important;
+}
+#activateSemester {
+    position: relative;
+    color:black;
+    float:right;
+    font-size:8pt;
+    left:-20px;
+    top:-27px;
+    z-index:1200;
+}
+/*
+ --------------------------------------headings---------------------------------
+ */
+h1 {
+    color: #0073EA;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 8px 0 0 8px;
+}
+/*
+ --------------------------------------login------------------------------------
+ */
+#loginFieldset {
+    width: 200px;
+}
+/*-
+ --------------------------------------inner course frame-----------------------
+ */
+.courseLabel {
+    font-family: Verdana, Geneva, sans-serif;
+    font-weight: bold;
+    margin-right: 5px;
+}
+.courseTitle {
+    font-family: Verdana, Geneva, sans-serif;
+    font-weight: bold;
+}
+.courseTeacher {
+    font-family: Verdana, Geneva, sans-serif;
+    font-weight: bold;
+}
+.courseTeachers {
+    font-family: Verdana, Geneva, sans-serif;
+    float:right;
+}
+.courseDescription {
+    font-family: Verdana, Geneva, sans-serif;
+    margin: 12px 5px 10px 5px;
+}
+.courseMaterialsFee, .courseAgeLevel, .courseGradeLevel, .courseHomeworkHours, .courseMaterials, .courseTuition {
+    font-family: Verdana, Geneva, sans-serif;
+    margin-bottom: 7px;
+}
+/*-
+ --------------------------------------assignments-----------------------------
+ */
+.assignments {
+    border-collapse: collapse;
+}
+.assignments th, .assignments td {
+    padding: 0.5em;
+}
+table.assignments a {
+    color:  #0073EA !important;
+}
+table.assignments :visited {
+    color: #0073EA !important;
+}
+table.assignments a:hover {
+    color: #ff0084 !important;
+}
+table.assignments a:active {
+    color: #0073EA !important;
+}
+td.instructions {
+    max-width: 150px;
+}
+.unitGrade {
+    background-color: #eeeeff;
+}
+/*-
+ --------------------------------------base-----------------------------
+ */
+#logged_in_as {
+    float: right;
+    position: relative;
+    top: -30px;
+}
+/*-
+ --------------------------------------calendar--------------------------
+ */
+
+#calendar {
+    padding: 0 10px 10px 10px;
+}
+#calendar table {
+    /* width: 100%; */
+    table-layout: fixed;
+    width: 950px;
+}
+#calendar th {
+    height: 15px;
+}
+#calendar td {
+    border: 1px dotted #333333;
+    height: 90px;
+}
+#calendar td.sun, #calendar td.sat {
+    background-color: #EEEEEE;
+}
+#calendar .today {
+    border: 3px solid  #0073ea !important;
+}
+#calendar th.month {
+   text-align: center;
+   padding: 10px;
+   font-size: 16px;
+   font-weight: bold;
+}
+#calendar .filled {
+    width: 150px;
+}
+/*-
+ ----------------------------------grades------------------------------
+ */
+.row1 {
+    background-color: #dae2ea;
+}
+.row2 {
+}
+.grades {
+    border-collapse: collapse;
+    border: dotted #eeeeee 1px;
+}
+.grades th, .grades td {
+    padding: 0 6px;
+    border: dotted #cccccc 1px;
+}
+
+/*-
+ ----------------------------------index------------------------------
+ */
+.welcome_name, .welcome {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #0073ea;
+    text-align: center;
+}
+.welcome {
+    color:  #333;
+}
+
+/*-
+ ----------------------------------messages------------------------------
+ */
+.messages {
+    margin: 3px 0 2px 6px;
+}
+.messages ul {
+    margin-top: 5px;
+}
+.messages li {
+    line-height: 1.5;
+}
+.msg_history {
+    border-collapse: collapse;
+}
+.msg_history th, .assignments td {
+    padding: 0.5em;
+}
+table.msg_history a {
+    color:  #0073EA !important;
+}
+table.msg_history :visited {
+    color: #0073EA !important;
+}
+table.msg_history a:hover {
+    color: #ff0084 !important;
+}
+table.msg_history a:active {
+    color: #0073EA !important;
+}
+.msg_history {
+    width: 100%;
+    border-collapse: collapse;
+    border: dotted #eeeeee 1px;
+}
+.msg_history th, .msg_history td {
+    padding: 0 6px;
+    border: dotted #cccccc 1px;
+}
+.msg_history li {
+    line-height: 1.5em;
+}

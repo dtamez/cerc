@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $("#tabs").tabs(
+        );
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div id="tabs">
+    <ul>
+        <li><a href="#tab_sent">Sent</a></li>
+        <li><a href="#tab_received">Received</a></li>
+    </ul>
+    <div id="tab_sent">
+        <table class='msg_history'>
+            <tr>
+                <th>Subject</th>
+                <th>Recipients</th>
+                <th>Body</th>
+                <th>Date</th>
+            </tr>
+        {% for msg in messages_from %}
+            <tr>
+                <td>{{ msg.subject }}</td>
+                <td>
+                    <ul>
+                    {% for user in msg.recipients %}
+                    <li>{{ user.email }}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ msg.body }}</td>
+                <td>{{ msg.date }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div> <!-- end tab -->
+    <div id="tab_received">
+        <table class='msg_history'>
+            <tr>
+                <th>Sender</th>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Body</th>
+            </tr>
+        {% for msg in messages_to %}
+            <tr>
+                <td>{{ msg.sender.get_full_name }}</td>
+                <td>{{ msg.date }}</td>
+                <td>{{ msg.subject }}</td>
+                <td>{{ msg.body }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div> <!-- end tab -->
+</div> <!-- end all tabs -->
+{% endblock %}

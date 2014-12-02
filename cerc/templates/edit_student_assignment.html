@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+        $(".dateinput").datepicker({
+            defaultDate: '{{ form.instance.assignment.due_date|date:'m/d/Y' }}'
+        });
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>Edit {{ form.instance.assignment.unit.name  }} - {{ form.instance.assignment.name }} Assignment for {{ student.student.full_name }}</h1>
+<form action='' method='POST' class="uniForm">{% csrf_token %}
+	{{ form|crispy }}
+	<input class="submitButton" type="submit" value="Save Assignment">
+</form>
+{% endblock %}

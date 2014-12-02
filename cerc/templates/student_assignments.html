@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $("#tabs").tabs(
+        );
+        {% for course in courses %}
+        $("#accordion_units_{{ course.id }}").accordion({
+            collapsible: false,
+            autoHeight: false,
+        });
+        {% endfor %}
+        {% if edited_course %}
+        $("#tabs").tabs('select', '#tab{{edited_course}}')
+        {% endif %}
+        {% if edited_unit %}
+        $('#accordion_units_{{ edited_course }}').accordion('option', 'active', $('.{{ edited_unit }}'));
+        {% endif %}
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div id="tabs">
+    <ul>
+        {% for course in courses %}
+        <li><a href="#tab{{ course.id }}">{{ course.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% for course in courses %}
+    <div id="tab{{ course.id }}">
+        <div id="accordion_units_{{ course.id }}">
+            {% for unit in course.units  %}
+            <h3 class='{{ unit.id }}'>
+                <a href="#">{{ unit.name }} - {{ unit.date }}</a></h3>
+            <div>
+                <table class='assignments'>
+                    <tr>
+                        <th>
+                            Assignment:
+                        </th>
+                        <th>
+                            Instructions:
+                        </th>
+                        <th>
+                            Due:
+                        </th>
+                        <th>
+                            Counts:
+                        </th>
+                        <th>
+                            Turned in on:
+                        </th>
+                        <th>
+                            Grade:
+                        </th>
+                {% for sa in unit.student_assignments %}
+                    <tr>
+                        <td>{{ sa.assignment.name }}</td>
+                        <td class='instructions'>{{ sa.assignment.instructions }}</td>
+                        <td>{{ sa.assignment.due_date }}</td>
+                        <td>{{ sa.assignment.weight }}%</td>
+                        <td>{{ sa.turn_in_date|default_if_none:"N/A" }}</td>
+                        <td>{{ sa.grade|default_if_none:"N/A"  }}</td>
+                    </tr>
+                {% endfor %}
+                    <tr class='unitGrade'>
+                        <td>{{ unit.name }} Unit</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ unit.student_unit.grade|default_if_none:"N/A"  }}</td>
+                    </tr>
+                </table>
+            </div>
+            {% endfor %}
+        </div> <!-- end accordian -->
+    </div> <!-- end tab -->
+    {% endfor %}
+</div> <!-- end all tabs -->
+{% endblock %}

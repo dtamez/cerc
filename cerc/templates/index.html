@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $("#tabs").tabs();
+        $("#accordion_courses").accordion({
+            collapsible: true,
+            autoHeight: false
+            }
+        );
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div id="tabs">
+    <ul>
+        <li><a href="#tab1">Upcoming Courses</a></li>
+        <li><a href="#tab2">Enrollments and Assignments</a></li>
+    </ul>
+    <div id="tab1">
+    <table>
+        {% for course in teacher.upcoming %}
+        <tr>
+            <td>&nbsp;</td>
+            <td colspan="4"><strong>{{course.title}}</strong></td>
+            <td><a href="/edit_course_details/{{ course.id }}">Edit Course Details</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <div id="tab2">
+        <div id="accordion_courses">
+            {% for course in teacher.courses %}
+                <h3><a href="#">{{course.title}}</a></h3>
+                <div>
+                    <a href="/assignments_for_course/{{ course.id }}">All {{ course.title }} Assignments</a>
+                    {{course.num_students}} students
+                    <table class='assignments'>
+                    {% for student in course.students %}
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>{{student}}</td>
+                            <td><a href="/assignments_for_student/{{ student.id }}">Assignments</a></td>
+                            <td>{{student.family.mother}}</td>
+                            <td>{{student.student.phone|phone_format}}</td>
+                            <td>{{student.student.email}}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

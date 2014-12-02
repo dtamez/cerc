@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Enrollment Report{% endblock %}
+
+{% block content %}
+{% if fams %}
+<h1>Enrollment for {{semester_name}} by Family</h1>
+<table>
+
+  {% for family in fams %}
+  <tr class="even">
+    <td><strong>{{family.name}}</strong></td>
+	  <td>&nbsp;</td>
+    <td>{{family.mother}}</td>
+    <td>{{family.father}}</td>
+    <td>{{family.phone}}</td>
+    <td>{{family.phone2}}</td>
+    <td>{{family.email}}</td>
+  </tr>
+
+      {% for student in family.students %}
+	      <tr>
+	  	    <td>&nbsp;</td>
+          <td>{{student.name}}</td>
+	  	    <td>&nbsp;</td>
+	  	    <td>&nbsp;</td>
+	  	    <td>&nbsp;</td>
+	  	    <td>&nbsp;</td>
+	  	    <td>&nbsp;</td>
+		  </tr>
+
+        {% for course in student.courses %}
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="2">{{course.name}}</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        {% endfor %}
+
+      {% endfor %}
+
+  {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

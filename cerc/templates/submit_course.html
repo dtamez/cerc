@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>Submit a new course</h1>
+<form action='/submit_course/' method='POST' class="uniForm">{% csrf_token %}
+	{{ form|crispy }}
+	<input class="submitButton" type="submit" value="Submit Course">
+</form>
+{% endblock %}

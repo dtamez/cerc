@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Teacher Bio{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>Edit Teacher Bio</h1>
+  {% if form.errors %}
+  <p class="form_error">Please correct the fields indicated below.</p>
+  {% endif %}
+<form action='/edit_teacher_bio/' method='POST' class="uniForm">{% csrf_token %}
+	{{ form|crispy }}
+	<input class="submitButton" type="submit" value="Submit Teacher Bio">
+</form>
+{% endblock %}

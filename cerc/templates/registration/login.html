@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+    });
+</script>
+{% endblock %}
+{% block content %}
+<h1>Log in</h1>
+<form method="post" action="/accounts/login/" class="uniForm">{% csrf_token %}
+		{{ form|crispy }}
+  <input type="submit" value="Log in" class="submitButton" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+<p>Forgot your username or password? <a href="{% url 'auth_password_reset' %}">Reset it</a>!</p>
+<p>Not a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+{% endblock %}

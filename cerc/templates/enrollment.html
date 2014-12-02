@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Enrollment Reports{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+    });
+</script>
+{% endblock %}
+{% block content %}
+<h1>Choose a semester on which to report</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>
+      <label for="semester" class="required">Semester:</label>
+      <select name="semester" id="semester">
+          {% for semester in semesters %}
+          <option value="{{semester.id}}">{{semester.name}}</option>
+          {% endfor %}
+      </select>
+    </p>
+    <p>
+      <input id="by_teacher" name="by_teacher" type="submit" class="submitButton" value="Enrollment by Teacher Report" />
+    </p>
+    <p>
+      <input id="by_family" name="by_family" type="submit" class="submitButton" value="Enrollment by Family Report" />
+    </p>
+</form>
+
+{% endblock %}

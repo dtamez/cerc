@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>Edit Family Members</h1>
+<form action='' method='POST' class="uniForm">{% csrf_token %}
+    <table>
+    {{ family_form|crispy }}
+    {{ address_form|crispy }}
+    {% crispy father_form father_form.helper %}
+    {% crispy mother_form mother_form.helper %}
+	<input class="submitButton" type="submit" value="Save Family">
+    </table>
+</form>
+{% endblock %}

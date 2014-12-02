@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Contact Info{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+        $(".dateinput").datepicker();
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>Submit contact info</h1>
+  {% if contact_info_form.errors or address_form.errors %}
+  <p class="form_error">Please correct the fields indicated below.</p>
+  {% endif %}
+<form action='/submit_contact_info/' method='POST' class="uniForm">{% csrf_token %}
+	{{ contact_info_form|crispy }}
+	{{ address_form|crispy }}
+	<input class="submitButton" type="submit" value="Submit Contact Info">
+</form>
+{% endblock %}

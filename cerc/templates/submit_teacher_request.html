@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Request to become a CERC teacher{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>Submit teacher request</h1>
+<form action='/submit_teacher_request/' method='POST' class="uniForm">{% csrf_token %}
+	<p>If you would like to be considered for a teaching position at CERC please fill in the fields below and submit this form.  </p>
+		{{ form|crispy }}
+	<input class="submitButton" type="submit" value="Submit Teacher Request">
+</form>
+{% endblock %}

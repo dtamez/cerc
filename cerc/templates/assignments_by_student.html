@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $("#accordion_students").accordion({
+            collapsible: true,
+            autoHeight: false
+            }
+        );
+    });
+</script>
+{% endblock %}
+{% block content %}
+    <div id="accordion_students">
+        {% for course in teacher.courses %}
+            <h3><a href="#">{{course.title}} - {{course.num_students}} students
+</a></h3>
+            <div>
+
+                <table class='assignments'>
+                {% for student in course.students %}
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>{{student}}</td>
+                        <td><a href="/assignments_for_student_and_course/{{ student.id }}/{{course.id}}">Assignments</a></td>
+                        <td>{{student.family.mother}}</td>
+                        <td>{{student.student.phone|phone_format}}</td>
+                        <td>{{student.student.email}}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

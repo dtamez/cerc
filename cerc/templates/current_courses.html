@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $("#accordion_courses").accordion({
+            collapsible: true,
+            autoHeight: false
+            }
+        );
+    });
+</script>
+{% endblock %}
+{% block content %}
+<h1 id="heading">Current courses for {{ teacher.name }}</h1>
+<table>
+    {% for course in teacher.current %}
+    <tr>
+        <td>&nbsp;</td>
+        <td colspan="4"><strong>{{course.title}}</strong></td>
+        <td><a href="/edit_course_destails/{{ course.id }}">Edit Course Details</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

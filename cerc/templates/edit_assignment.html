@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+        $(".dateinput").datepicker();
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>Edit Assignment for {{ course_title }} - {{ form.instance.unit.name  }}</h1>
+<form action='' method='POST' class="uniForm">{% csrf_token %}
+	{{ form|crispy }}
+	<input class="submitButton" type="submit" value="Save Assignment">
+</form>
+{% endblock %}

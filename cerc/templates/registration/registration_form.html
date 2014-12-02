@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+    });
+</script>
+{% endblock %}
+{% block content %}
+<h1 id="heading">Register</h1>
+<form method="post" action="." class="uniForm">{% csrf_token %}
+	{{ form|crispy }}
+  <input class="submitButton" type="submit" value="Submit" />
+</form>
+{% endblock %}

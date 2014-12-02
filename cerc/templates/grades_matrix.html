@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $("#tabs").tabs(
+        );
+        {% for course in courses %}
+        $("#accordion_units_{{ course.id }}").accordion({
+            collapsible: false,
+            autoHeight: false,
+        });
+        {% endfor %}
+        {% if edited_course %}
+        $("#tabs").tabs('select', '#tab{{edited_course}}')
+        {% endif %}
+        {% if edited_unit %}
+        $('#accordion_units_{{ edited_course }}').accordion('option', 'active', $('.{{ edited_unit }}'));
+        {% endif %}
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div id="tabs">
+    <ul>
+        {% for course in courses %}
+        <li><a href="#tab{{ course.id }}">{{ course.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% for course in courses %}
+    <div id="tab{{ course.id }}">
+        <div id="accordion_units_{{ course.id }}">
+            {% for unit in course.units  %}
+            <h3 class='{{ unit.id }}'>
+                <a href="#">{{ unit.name }} - {{ unit.date }}</a></h3>
+            <div>
+                <table class='grades'>
+                    <tr>
+                        <td>&nbsp;</td>
+                {% for assignment in unit.assignments %}
+                        <td>{{ assignment.name }}</td>
+                {% endfor %}
+                    <td>Unit Grade</td>
+                    </tr>
+                    {% for row in unit.rows %}
+                        <tr class="{% cycle 'row1' 'row2' %}">
+                        {% for cell in row  %}
+                            <td>
+                                {{ cell|default:"" }}
+                            </td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </div> <!-- end accordian -->
+    </div> <!-- end tab -->
+    {% endfor %}
+</div> <!-- end all tabs -->
+{% endblock %}

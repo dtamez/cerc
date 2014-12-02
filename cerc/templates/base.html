@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN""
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>CERC - {% block title %}{% endblock %}</title>
+<!--   workaround for flash of unstyled content in IE  -->
+  <script type="text/javascript"></script>
+  <link rel="stylesheet" href="/static/css/reset.css" type="text/css" media="screen, projection"/>
+  <link type="text/css" href="/static/css/jquery-ui.css" rel="stylesheet" />
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <script type="text/javascript" src="/static/js/jquery.custom.js"></script>
+  <link rel="stylesheet" href="/static/css/uni_form/uni-form.css" type="text/css" />
+  <link rel="stylesheet" href="/static/css/uni_form/default.uni-form.css" type="text/css" />
+  <link rel="stylesheet" media="all" type="text/css" href="/static/pro_dropline_6/pro_dropline_6.css" />
+  <script src="/static/pro_dropline_6/click_menu4.js" type="text/javascript"></script>
+
+  <script src="/static/js/uni_form/uni-form.jquery.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/static/css/cerc.css" type="text/css" media="screen, projection"/>
+<script>
+    $(document).ready(function() {
+        $("form").not('#activateSemesterForm').find(':input:visible:first').focus();
+    });
+
+    function activateSemester(id) {
+        jQuery.ajax('/activate_semester/' + id);
+    }
+</script>
+{% block head %}{% endblock %}
+</head>
+<body {% block bodytag %}{%endblock%}>
+  <div class="container">
+      {% block header %}
+    <div id="header">
+        <div id="banner">CERC Online Enrollment &amp; Grading</div>
+        {% if user.is_authenticated %}
+        <div id="logged_in_as">logged in as {{ user.username }}</div>
+        {% endif %}
+
+        <div id="container">
+            <div id="outer">
+                <ul id="menu">
+                    <li id=no1" class="clicked"><a href="/">Home</a></li>
+                    {% if user.is_authenticated %}
+                      <li id="no2"><a href="{% url 'auth_logout' %}">Logout</a></li>
+                      {% if current_user.is_teacher %}
+                        <li id="li_1"><a class="down" href="#nogo">My Account</a></li>
+                        <li id="li_2"><a class="down" href="#nogo">Courses</a></li>
+                        <li id="li_3"><a class="down" href="#nogo">Assignments</a></li>
+                        <li id="li_4"><a class='down' href="#nogo">Messages</a></li>
+                      {% elif current_user.is_student %}
+                        <li id="li_1"><a class="down" href="#nogo">My Account</a></li>
+                        <li id="li_3"><a class="down" href="#nogo">Assignments</a></li>
+                        <li id="li_4"><a class='down' href="#nogo">Messages</a></li>
+                      {% elif current_user.is_family %}
+                        <li id="li_1"><a class="down" href="#nogo">My Family</a></li>
+                        {% if current_user.show_enroll_menu %}
+                        <li id="li_5"><a class="down" href="#nogo">Enrollment</a></li>
+                        {% endif %}
+                        <li id="li_4"><a class='down' href="#nogo">Messages</a></li>
+                      {% endif %}
+                    {% else %}
+                      <li id="no2"><a href="{% url 'auth_login' %}">Login</a></li>
+                      <li id="no3"><a href="{% url 'registration_register' %}"/>Register Your Family</a></li>
+                      <li id="no4"><a href="/submit_teacher_request">Become a CERC teacher</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div id="submenus">
+                <ul id="ul_1">
+                    <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
+                    {% if current_user.is_teacher %}
+                    <li><a href="/edit_teacher_bio">Edit Teacher Bio</a></li>
+                      {% if current_user.is_family %}
+                        <li><a href="/edit_family">Edit Family</a></li>
+                      {% endif %}
+                    {% elif current_user.is_family  %}
+                    <li><a href="/edit_family">Edit Family</a></li>
+                    {% else %}
+                    <li><a href="/submit_contact_info">Edit Contact Info</a></li>
+                    {% endif %}
+                </ul>
+                <ul id="ul_2">
+                    <li><a href="/upcoming_courses">Upcoming Courses</a></li>
+                    <li><a href="/submit_course">Submit a New Course</a></li>
+                    {% if current_user.is_staff %}
+                    <li><a href="/enrollment_report">Enrollment Report</a></li>
+                    {% endif %}
+                </ul>
+                <ul id="ul_3">
+                    {% if current_user.is_teacher %}
+                    <li><a href="/manage_assignments">Manage Course Assignments</a></li>
+                    <li><a href="/assignments_by_course">Grade Student Assignments</a></li>
+                    <li><a href="/grades_matrix">Grades Matrix</a></li>
+                    {% else %}
+                    <li><a href="/assignments">Assignments by Course</a></li>
+                    <li><a href="/assignments_calendar">Assignments Calendar</a></li>
+                    {% endif %}
+                </ul>
+                <ul id='ul_4'>
+                    {% if current_user.is_teacher %}
+                      <li><a href="/teacher_send_message/">Send Messages</a></li>
+                    {% elif current_user.is_student %}
+                      <li><a href="/student_send_message/">Send Messages</a></li>
+                    {% elif current_user.is_family %}
+                      <li><a href="/family_send_message/">Send Messages</a></li>
+                    {% endif %}
+                    <li><a href="/message_history">Message History</a></li>
+                </ul>
+                <ul id='ul_5'>
+                      {% if current_user.show_approve %}
+                      <li><a href="/family_approval_process/">Family Approval Forms</a></li>
+                      {% endif %}
+                      {% if current_user.show_enroll %}
+                      <li><a href="/enroll_students/">Enroll for Classes</a></li>
+                      {% endif %}
+                </ul>
+            </div>
+            {% if user.is_authenticated %}
+            <div id='activateSemester'>
+            <form id='activateSemesterForm' action="/activate_semester" method="post" accept-charset="utf-8">
+                <table border="0">
+                    {{ active_semester_form }}
+                </table>
+            </form>
+            </div>
+            {% endif %}
+        </div> <!-- end of #container (menus) -->
+    </div> <!-- end of header -->
+    <script src="/static/pro_dropline_6/hover_menu6.js" type="text/javascript"></script>
+    {% endblock %}
+    <div  id="content">
+        <div id="messages">
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        <div id='formErrors'>
+        {% if form.errors and not form.non_field_errors %}
+        <p class="form_error">Please correct the fields indicated below.</p>
+        {% else %}
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p class="form_error">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+        {% endif %}
+        </div>
+        {% block content %}
+        {% endblock %}
+        <div id="dividerBottom"></div>
+    </div> <!-- end content -->
+
+    {% block footer %}
+    <div id="footer">
+      &copy; 2009-2011 Christian Educator's Resource Center. All rights reserved.
+    </div>  <!-- end footer  -->
+    <div> <!-- end container -->
+    {% endblock %}
+    {% block bottomjs %} {% endblock %}
+</body>
+</html>

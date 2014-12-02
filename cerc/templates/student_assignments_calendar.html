@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $.ajaxStart(function() {
+            $('div#loading').text('Loading...');
+        });
+        $.ajaxComplete(function() {
+            $('div#loading').text('');
+        });
+    });
+    function loadInfo(id) {
+        $('#details').load('/assignment_info/' + id);
+    }
+</script>
+{% endblock %}
+{% load cerc %}
+
+{% block content %}
+<div id="calendar">
+    {{ calendar }}
+</div>
+<div id='loading'></div>
+<div id='details'></div>
+{% endblock %}

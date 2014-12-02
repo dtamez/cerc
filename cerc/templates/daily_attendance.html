@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+
+<h1>Attendance Report for {{results.today|date:"l F d"}}</h1>
+{% if results.students %}
+<table>
+{% for student in results.students %}
+    <tr class='{{ student.class }}'>
+<td colspan='3'>{{student.name}}</td>
+   </tr>
+   {% for course in student.courses %}
+    <tr class='{{ student.class }}'>
+  <td>&nbsp;</td>
+  <td>{{ course.name }}</td>
+  <td>{{student.attended|yesno}}</td>
+   </tr>
+   {% endfor %}
+{% endfor %}
+</table>
+{% else %}
+    No classes today
+{% endif %}
+{% block footer %}{% endblock %}
+{% endblock %}

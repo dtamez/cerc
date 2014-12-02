@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $(".submitButton").button();
+    });
+</script>
+{% endblock %}
+{% block content %}
+
+<h1>{{ unit.course }} {{ unit.name  }} grade for {{ student.student.full_name }}</h1>
+<form action='' method='POST' class="uniForm">{% csrf_token %}
+	{{ form|crispy }}
+	<input class="submitButton" type="submit" value="Save Grade">
+</form>
+{% endblock %}

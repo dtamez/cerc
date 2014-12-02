@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %}Enrollment Report{% endblock %}
+
+{% block content %} <h1>Upcoming Classes</h1>
+
+    {% if results %}
+    <table>
+        <tr>
+            <th>Code</th><th>Title</th><th>Materials fee</th><th>Teachers</th><th>Tuition</th>
+        </tr>
+
+        {% for course in results %}
+        <tr class="{% cycle 'odd' 'even' %}">
+               <td><strong>{{course.code}}</strong></td>
+               <td>{{course.title}}</td>
+               <td>{{course.materials_fee}}</td>
+               <td>
+                   <table>
+                    {% for teacher in course.teachers %}
+                        <tr> <td>{{ teacher }}</td></tr>
+                    {% endfor %}
+                 </table>
+              </td>
+              <td>{{course.tuition}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock %}

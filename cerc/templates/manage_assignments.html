@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $("#tabs").tabs(
+        );
+        {% for course in courses %}
+        $("#accordion_units_{{ course.id }}").accordion({
+            collapsible: false,
+            autoHeight: false,
+        });
+        {% endfor %}
+        {% if edited_course %}
+        $("#tabs").tabs('select', '#tab{{edited_course}}')
+        {% endif %}
+        {% if edited_unit %}
+        $('#accordion_units_{{ edited_course }}').accordion('option', 'active', $('.{{ edited_unit }}'));
+        {% endif %}
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div id="tabs">
+    <ul>
+        {% for course in courses %}
+        <li><a href="#tab{{ course.id }}">{{ course.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% for course in courses %}
+    <div id="tab{{ course.id }}">
+        <table class='assignments'>
+            <tr>
+                <td colspan="2"><a href="/add_unit_for_course/{{ course.id }}">Add New {{ course.title }} Unit</a></td>
+            </tr>
+        </table>
+        <div id="accordion_units_{{ course.id }}">
+            {% for unit in course.units  %}
+            <h3 class='{{ unit.id }}'>
+                <a href="#">{{ unit.name }} - {{ unit.date }}</a></h3>
+            <div>
+                <table class='assignments'>
+                    <tr>
+                        <td colspan="2"><a href="/edit_unit/{{ unit.id }}">Edit {{ unit.name }} Unit</a></td>
+                        <td colspan="2"><a href="/delete_unit/{{ unit.id }}">Delete {{ unit.name }} Unit</a></td>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><a href="/add_assignment_for_unit/{{ unit.id }}">Add New {{ unit.name }} Assignment</a></td>
+                        <td colspan="2"><a href="/copy_assignments_for_unit/{{ unit.id }}">Copy {{ unit.name }} Assignments to Another Unit</a></td>
+                        <td colspan="3"><a href="/change_unit_assignment_dates/{{ unit.id }}">Change {{ unit.name }} Assignments Dates</a></td>
+                    </tr>
+                {% for assignment in unit.assignments %}
+                    <tr>
+                        <td><a href="/edit_assignment/{{ assignment.id }}">Edit</a></td>
+                        <td>{{ assignment.name }}</td>
+                        <td colspan="2">{{ assignment.instructions|truncatewords:20 }}...</td>
+                        <td>{{ assignment.due_date }}</td>
+                        <td>{{ assignment.weight }}</td>
+                        <td><a href="/delete_assignment/{{ assignment.id }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </div> <!-- end accordian -->
+    </div> <!-- end tab -->
+    {% endfor %}
+</div> <!-- end all tabs -->
+{% endblock %}

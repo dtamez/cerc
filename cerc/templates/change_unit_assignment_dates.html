@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% block content %}
+<div>
+    <form action='./{{ unit.id }}' method='POST' class="uniForm">{% csrf_token %}
+        {{ form|crispy }}
+	    <input class="submitButton" type="submit" value="Submit Changes">
+    </form>
+</div>
+{% endblock %}

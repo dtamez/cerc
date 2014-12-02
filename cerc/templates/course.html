@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>CERC Course {{ course.code }}</title>
+        <link rel="stylesheet" href="/static/css/cerc.css" type="text/css" media="screen, projection"/>
+    </head>
+    <body>
+        <div id="container">
+            <h1 class='courseCode'>{{ course.code }}</h1>
+            <span class='courseTitle'>{{ course.title }}</span>
+            <div class="courseTeachers">
+                {% for teacher in course.teachers.all %}
+                    <div class='courseTeacher'>{{ teacher }}</div>
+                {% endfor %}
+            </div>
+            <div class='courseDescription'>{{ course.description|safe }}</div>
+            <div class='courseMaterials'>
+                <span class="courseLabel">Materials Needed:</span> {{ course.materials_list|safe }}
+            </div>
+            <div class='courseTuition'>
+                <span class="courseLabel">Monthly Tuition:</span>${{ course.tuition|floatformat:2 }}
+            </div>
+            <div class='courseMaterialsFee'>
+                <span class="courseLabel">Materials Fee:</span>${{ course.materials_fee|floatformat:2 }}
+            </div>
+            <div class='courseAgeLevel'>
+                <span class="courseLabel">Age Level:</span> {{ course.age_level }}
+            </div>
+            <div class='courseGradeLevel'>
+                <span class="courseLabel">Grade Level:</span> {{ course.grade_level }}
+            </div>
+            <div class='courseHomeworkHours'>
+                <span class="courseLabel">Homework Hours:</span> {{ course.homework_hours }}
+            </div>
+        </div>
+    </body>
+</html>

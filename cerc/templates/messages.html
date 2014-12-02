@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% load cerc %}
+{% load crispy_forms_tags %}
+{% block head %}
+<script>
+    $(document).ready(function() {
+        $("#accordion_courses").accordion({
+            collapsible: true,
+            autoHeight: false
+            {% if selected_course %},
+                active: $('.{{ selected_course }}')
+            {% endif %}
+            }
+        );
+    });
+</script>
+{% endblock %}
+{% block content %}
+    <div id="accordion_courses">
+        {% for course in courses %}
+        <h3 class='{{ course.id }}'><a href="#">{{ course.title }} </a></h3>
+            <div>
+                <form action="./{{ course.id }}" method='POST' class='uniForm'>{% csrf_token %}
+                    {{ course.form|crispy }}
+                    <input type='submit' value='Send'/>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

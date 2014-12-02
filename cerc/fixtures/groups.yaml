@@ -1,0 +1,12 @@
+- model: auth.group
+  pk: 1
+  fields:
+    name: 'Teachers'
+- model: auth.group
+  pk: 2
+  fields:
+    name: 'Families'
+- model: auth.group
+  pk: 3
+  fields:
+    name: 'Students'

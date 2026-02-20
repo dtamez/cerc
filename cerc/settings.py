@@ -1,13 +1,10 @@
 import os
 
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                            os.pardir))
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-ALLOWED_HOSTS = ['enroll-cerconline.org',
-                 'www.enroll-cerconline.org',
-                 'localhost']
+ALLOWED_HOSTS = ["enroll-cerconline.org", "www.enroll-cerconline.org", "localhost"]
 
 ADMINS = [
     ("Danny Tamez", "zematynnad@gmail.com"),
@@ -37,7 +34,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-SECRET_KEY = 'y!v#8(u2@8vxs%snov1(orujd+^ff-*rymnmfw=or5c&xh-(em'
+SECRET_KEY = os.environ.get("SECRET_KEY", "DEV-KEY")
 
 # Application definition
 TEMPLATE_LOADERS = [
@@ -48,8 +45,8 @@ TEMPLATE_LOADERS = [
 TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
-    'cerc.context_processors.semesters',
-    'cerc.context_processors.users',
+    "cerc.context_processors.semesters",
+    "cerc.context_processors.users",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
@@ -66,45 +63,41 @@ MIDDLEWARE_CLASSES = [
     "django.contrib.messages.middleware.MessageMiddleware",
 ]
 
-ROOT_URLCONF = 'cerc.urls'
-WSGI_APPLICATION = 'cerc.wsgi.application'
+ROOT_URLCONF = "cerc.urls"
+WSGI_APPLICATION = "cerc.wsgi.application"
 
-TEMPLATE_DIRS = [os.path.join(PACKAGE_ROOT, 'templates')]
-CRISPY_TEMPLATE_PACK = 'uni_form'
+TEMPLATE_DIRS = [os.path.join(PACKAGE_ROOT, "templates")]
+CRISPY_TEMPLATE_PACK = "uni_form"
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'eventlog',
-    'crispy_forms',
-    'registration',
-    'django_ajax',
-    'south',
-    'cerc',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.sites",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "eventlog",
+    "crispy_forms",
+    "registration",
+    "django_ajax",
+    "south",
+    "cerc",
 )
-AUTH_PROFILE_MODULE = 'cerc.models.Family'
+AUTH_PROFILE_MODULE = "cerc.models.Family"
 ACCOUNT_ACTIVATION_DAYS = 2
-DEFAULT_FROM_EMAIL = 'administrator@enroll-cerconline.org'
-LOGIN_REDIRECT_URL = '/'
+DEFAULT_FROM_EMAIL = "administrator@enroll-cerconline.org"
+LOGIN_REDIRECT_URL = "/"
 
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "filters": {
-        "require_debug_false": {
-            "()": "django.utils.log.RequireDebugFalse"
-        }
-    },
+    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
     "handlers": {
         "mail_admins": {
             "level": "ERROR",
             "filters": ["require_debug_false"],
-            "class": "django.utils.log.AdminEmailHandler"
+            "class": "django.utils.log.AdminEmailHandler",
         }
     },
     "loggers": {
@@ -113,13 +106,13 @@ LOGGING = {
             "level": "ERROR",
             "propagate": True,
         },
-    }
+    },
 }
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-DEFAULT_FROM_EMAIL = 'administrator@enroll-cerconline.org'
+DEFAULT_FROM_EMAIL = "administrator@enroll-cerconline.org"
 
 try:
     from local_settings import *
